@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Download Result</title>
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+.result-container{
+
+max-width:900px;
+
+margin:50px auto;
+
+background:#fff;
+
+padding:30px;
+
+border-radius:20px;
+
+box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+}
+
+.thumbnail{
+
+width:100%;
+
+border-radius:15px;
+
+margin-bottom:25px;
+
+}
+
+.info{
+
+margin-bottom:25px;
+
+}
+
+.info h2{
+
+margin-bottom:15px;
+
+}
+
+.download-buttons{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+gap:15px;
+
+margin-top:30px;
+
+}
+
+.download-buttons a{
+
+background:#4f46e5;
+
+color:white;
+
+text-decoration:none;
+
+padding:15px;
+
+border-radius:10px;
+
+text-align:center;
+
+font-weight:600;
+
+transition:.3s;
+
+}
+
+.download-buttons a:hover{
+
+background:#3730a3;
+
+}
+
+.back{
+
+display:inline-block;
+
+margin-top:30px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="result-container">
+
+<img class="thumbnail" src="<%= info.thumbnail %>" alt="Thumbnail">
+
+<div class="info">
+
+<h2><%= info.title %></h2>
+
+<p><strong>Uploader:</strong> <%= info.uploader %></p>
+
+<p><strong>Duration:</strong> <%= info.duration %> seconds</p>
+
+<p><strong>Views:</strong> <%= info.view_count %></p>
+
+</div>
+
+<div class="download-buttons">
+
+<a href="/download/video?url=<%= encodeURIComponent(info.webpage_url) %>">
+🎥 Download Video
+</a>
+
+<a href="/download/audio?url=<%= encodeURIComponent(info.webpage_url) %>">
+🎵 Download MP3
+</a>
+
+<a href="<%= info.thumbnail %>" target="_blank">
+🖼 Download Thumbnail
+</a>
+
+<a href="/download/info?url=<%= encodeURIComponent(info.webpage_url) %>">
+ℹ Video Information
+</a>
+
+</div>
+
+<a class="back" href="/">⬅ Back to Home</a>
+
+</div>
+
+</body>
+</html>
