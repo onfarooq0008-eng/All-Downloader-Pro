@@ -1,6 +1,7 @@
 require("dotenv").config();
 require("./database/database");
 
+const qrRoute=require("./routes/qr");
 const adminRoutes=require("./admin/routes/admin");
 const downloadRoute=require("./routes/download");
 const express = require("express");
@@ -58,6 +59,7 @@ app.get("/health", (req, res) => {
 });
 app.use("/download",downloadRoute);
 app.use("/admin",adminRoutes);
+app.use("/qr",qrRoute);
 
 // 404 Page
 app.use((req, res) => {
