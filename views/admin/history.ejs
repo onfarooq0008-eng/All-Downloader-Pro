@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Download History</title>
+
+<link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="result-container">
+
+
+<h1>
+📥 Download History
+</h1>
+
+
+
+<table width="100%">
+
+
+<tr>
+
+<th>Title</th>
+
+<th>Type</th>
+
+<th>IP</th>
+
+<th>Date</th>
+
+</tr>
+
+
+
+<% downloads.forEach(item=>{ %>
+
+
+<tr>
+
+<td>
+<%= item.title %>
+</td>
+
+
+<td>
+<%= item.type %>
+</td>
+
+
+<td>
+<%= item.ip %>
+</td>
+
+
+<td>
+<%= item.created_at %>
+</td>
+
+
+</tr>
+
+
+<% }) %>
+
+
+
+</table>
+
+
+</div>
+
+
+</body>
+
+</html>
