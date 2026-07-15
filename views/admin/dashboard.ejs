@@ -17,21 +17,120 @@
 
 
 <h1>
-Welcome <%= admin.username %>
+⚡ Admin Dashboard
 </h1>
 
 
-<hr>
+<p>
+Welcome <%= admin.username %>
+</p>
+
+
+
+<div class="stats">
+
+
+<div>
+
+<h2>
+<%= totalDownloads %>
+</h2>
+
+<p>
+Total Downloads
+</p>
+
+</div>
+
+
+
+<div>
+
+<h2>
+<%= todayDownloads %>
+</h2>
+
+<p>
+Today Downloads
+</p>
+
+</div>
+
+
+
+<div>
+
+<h2>
+Online
+</h2>
+
+<p>
+System Status
+</p>
+
+</div>
+
+
+</div>
+
 
 
 <h2>
-All Downloader Pro Admin Panel
+Recent Downloads
 </h2>
 
 
-<p>
-Manage downloads, users and website settings.
-</p>
+
+<table style="width:100%;margin-top:30px">
+
+
+<tr>
+
+<th>
+Title
+</th>
+
+<th>
+Type
+</th>
+
+<th>
+Date
+</th>
+
+</tr>
+
+
+
+<% recentDownloads.forEach(item=>{ %>
+
+
+<tr>
+
+
+<td>
+<%= item.title || "Unknown" %>
+</td>
+
+
+<td>
+<%= item.type %>
+</td>
+
+
+<td>
+<%= item.created_at %>
+</td>
+
+
+</tr>
+
+
+<% }) %>
+
+
+</table>
+
 
 
 <br>
@@ -43,6 +142,7 @@ href="/admin/logout">
 Logout
 
 </a>
+
 
 
 </div>
