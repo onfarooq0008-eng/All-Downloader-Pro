@@ -1,16 +1,27 @@
 FROM node:22-bookworm
 
-# Install ffmpeg and yt-dlp
-RUN apt-get update && \
-    apt-get install -y ffmpeg python3 python3-pip && \
-    pip3 install --break-system-packages yt-dlp && \
-    rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    python-is-python3 \
+    ffmpeg \
+    build-essential \
+    sqlite3 \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install yt-dlp
+RUN pip3 install --break-system-packages yt-dlp
+
 
 COPY package*.json ./
 
-RUN npm install
+# Fix npm install
+RUN npm install --build-from-source
 
 COPY . .
 
@@ -21,4 +32,4 @@ ENV PORT=8000
 
 EXPOSE 8000
 
-CMD ["npm", "start"]
+CMD ["npm","start"]
