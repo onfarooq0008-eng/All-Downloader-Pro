@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Website Settings</title>
+
+<link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="result-container">
+
+
+<h1>
+⚙ Website Settings
+</h1>
+
+
+<form method="POST"
+action="/admin/settings">
+
+
+<label>
+Website Name
+</label>
+
+<br>
+
+<input 
+name="site_name"
+value="<%= settings.site_name || '' %>"
+>
+
+
+<br><br>
+
+
+
+<label>
+Logo URL
+</label>
+
+<br>
+
+<input 
+name="logo"
+value="<%= settings.logo || '' %>"
+>
+
+
+<br><br>
+
+
+
+<label>
+Theme
+</label>
+
+<br>
+
+
+<select name="theme">
+
+
+<option value="light">
+Light
+</option>
+
+
+<option value="dark">
+Dark
+</option>
+
+
+</select>
+
+
+<br><br>
+
+
+
+
+<label>
+Announcement
+</label>
+
+<br>
+
+
+<textarea 
+name="announcement"
+rows="5"
+><%= settings.announcement || '' %></textarea>
+
+
+<br><br>
+
+
+
+<button class="btn-premium">
+
+Save Settings
+
+</button>
+
+
+</form>
+
+
+</div>
+
+
+</body>
+
+</html>
