@@ -4,41 +4,14 @@ const router=express.Router();
 
 const ytdlp=require("yt-dlp-exec");
 
+const db=require("../database/database");
+
+
 const {
 downloadVideo,
 downloadAudio
 }=require("../services/downloader");
 
-
-// Video Information
-
-router.post("/",async(req,res)=>{
-
-try{
-
-const url=req.body.url;
-
-
-const info=await ytdlp(url,{
-dumpSingleJson:true,
-noWarnings:true
-});
-
-
-res.render("pages/result",{
-info
-});
-
-
-}catch(error){
-
-console.log(error);
-
-res.send("Invalid URL");
-
-}
-
-});
 
 
 
@@ -46,51 +19,126 @@ res.send("Invalid URL");
 
 router.get("/video",async(req,res)=>{
 
+
 try{
 
-const file=await downloadVideo(
-req.query.url
+
+const url=req.query.url;
+
+
+
+const info=await ytdlp(url,{
+dumpSingleJson:true
+});
+
+
+
+await downloadVideo(url);
+
+
+
+db.run(
+
+`INSERT INTO downloads
+(url,title,type,ip)
+VALUES(?,?,?,?)`,
+
+[
+url,
+info.title,
+"MP4",
+req.ip
+]
+
 );
 
 
-res.download(file);
+
+res.send(
+"Video Download Started"
+);
 
 
-}catch(error){
+
+}
+
+catch(error){
 
 console.log(error);
 
-res.send("Video download failed");
+res.send(
+"Video Download Failed"
+);
 
 }
+
 
 });
 
 
 
-// MP3 Download
+
+
+// Audio Download
 
 router.get("/audio",async(req,res)=>{
 
+
 try{
 
-const file=await downloadAudio(
-req.query.url
+
+const url=req.query.url;
+
+
+
+const info=await ytdlp(url,{
+dumpSingleJson:true
+});
+
+
+
+await downloadAudio(url);
+
+
+
+db.run(
+
+`INSERT INTO downloads
+(url,title,type,ip)
+VALUES(?,?,?,?)`,
+
+[
+url,
+info.title,
+"MP3",
+req.ip
+]
+
 );
 
 
-res.download(file);
+
+res.send(
+"Audio Download Started"
+);
 
 
-}catch(error){
-
-console.log(error);
-
-res.send("Audio download failed");
 
 }
 
+catch(error){
+
+console.log(error);
+
+res.send(
+"Audio Download Failed"
+);
+
+}
+
+
 });
+
 
 
 module.exports=router;
