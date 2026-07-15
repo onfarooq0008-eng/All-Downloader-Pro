@@ -166,3 +166,29 @@ res.redirect("/admin/login");
 
 
 module.exports=router;
+
+router.get(
+"/history",
+adminAuth,
+(req,res)=>{
+
+
+db.all(
+
+"SELECT * FROM downloads ORDER BY id DESC",
+
+(err,data)=>{
+
+
+res.render(
+"admin/history",
+{
+downloads:data
+}
+);
+
+
+});
+
+
+});
