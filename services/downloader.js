@@ -9,21 +9,22 @@ __dirname,
 );
 
 
-// Create download folder
-
 if(!fs.existsSync(downloadFolder)){
-    fs.mkdirSync(downloadFolder);
+fs.mkdirSync(downloadFolder);
 }
 
 
-// Download Video
+
+// Video Download
 
 async function downloadVideo(url){
+
 
 const output = path.join(
 downloadFolder,
 "%(title)s.%(ext)s"
 );
+
 
 
 await ytdlp(url,{
@@ -45,14 +46,17 @@ return output;
 
 
 
-// Download Audio MP3
+
+// Audio Download
 
 async function downloadAudio(url){
+
 
 const output = path.join(
 downloadFolder,
 "%(title)s.%(ext)s"
 );
+
 
 
 await ytdlp(url,{
@@ -77,9 +81,6 @@ return output;
 
 
 module.exports={
-
 downloadVideo,
-
 downloadAudio
-
 };
