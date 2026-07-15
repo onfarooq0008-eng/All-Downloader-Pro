@@ -164,6 +164,118 @@ res.redirect("/admin/login");
 
 });
 
+// Settings Page
+
+router.get(
+"/settings",
+adminAuth,
+(req,res)=>{
+
+
+db.get(
+
+"SELECT * FROM settings LIMIT 1",
+
+(err,settings)=>{
+
+
+res.render(
+"admin/settings",
+{
+settings:settings || {}
+}
+);
+
+
+});
+
+
+});
+
+
+
+
+// Save Settings
+
+router.post(
+"/settings",
+adminAuth,
+(req,res)=>{
+
+
+const {
+site_name,
+logo,
+theme,
+announcement
+}=req.body;
+
+
+
+db.get(
+
+"SELECT * FROM settings LIMIT 1",
+
+(err,row)=>{
+
+
+if(row){
+
+
+db.run(
+
+`UPDATE settings SET
+site_name=?,
+logo=?,
+theme=?,
+announcement=?
+WHERE id=?`,
+
+[
+site_name,
+logo,
+theme,
+announcement,
+row.id
+]
+
+);
+
+
+}
+
+else{
+
+
+db.run(
+
+`INSERT INTO settings
+(site_name,logo,theme,announcement)
+VALUES(?,?,?,?)`,
+
+[
+site_name,
+logo,
+theme,
+announcement
+]
+
+);
+
+
+}
+
+
+
+res.redirect(
+"/admin/settings"
+);
+
+
+});
+
+
+});
 
 module.exports=router;
 
