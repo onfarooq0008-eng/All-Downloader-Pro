@@ -98,16 +98,56 @@ adminAuth,
 (req,res)=>{
 
 
+db.get(
+"SELECT COUNT(*) as total FROM downloads",
+(err,total)=>{
+
+
+db.get(
+
+`SELECT COUNT(*) as today 
+FROM downloads 
+WHERE date(created_at)=date('now')`,
+
+(err,today)=>{
+
+
+db.all(
+
+`SELECT * FROM downloads 
+ORDER BY id DESC 
+LIMIT 10`,
+
+(err,recent)=>{
+
+
 res.render(
 "admin/dashboard",
 {
-admin:req.session.admin
+
+admin:req.session.admin,
+
+totalDownloads: total ? total.total : 0,
+
+todayDownloads: today ? today.today : 0,
+
+recentDownloads: recent || []
+
 }
+
 );
 
 
 });
 
+
+});
+
+
+});
+
+
+});
 
 
 // Logout
