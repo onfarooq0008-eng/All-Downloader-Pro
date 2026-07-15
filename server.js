@@ -1,9 +1,8 @@
 require("dotenv").config();
 require("./database/database");
-
+const downloadRoute = require("./routes/download");
 const qrRoute=require("./routes/qr");
 const adminRoutes=require("./admin/routes/admin");
-const downloadRoute=require("./routes/download");
 const express = require("express");
 const path = require("path");
 const session = require("express-session");
